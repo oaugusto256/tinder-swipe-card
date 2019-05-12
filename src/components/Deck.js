@@ -25,19 +25,23 @@ export default class Deck extends Component {
   }
 
   renderCards() {
-    return this.props.data.map(card => {
+    return this.props.data.map((card, index) => {
+      if (index === 0) {
+        return (
+          <Animated.View
+            style={this.state.position.getLayout()}
+            {...this.state.panResponder.panHandlers}
+          >
+            {this.props.renderCard(card)}
+          </Animated.View>
+        );
+      }
+
       return this.props.renderCard(card);
     });
   }
 
   render() {
-    return (
-      <Animated.View
-        style={this.state.position.getLayout()}
-        {...this.state.panResponder.panHandlers}
-      >
-        {this.renderCards()}
-      </Animated.View>
-    );
+    return <View>{this.renderCards()}</View>;
   }
 }

@@ -5,9 +5,22 @@ export default class Deck extends Component {
   constructor(props) {
     super(props);
 
-    const panResponder = PanResponder.create({});
+    this._panResponder = PanResponder.create({
+      onPanResponderMove: (event, gesture) => {
+        console.log(event, gesture);
+        return true;
+      },
+      onPanResponderRelease: () => {},
+      onStartShouldSetPanResponder: (e, gestureState) => {
+        console.log(gestureState);
+        return true;
+      },
 
-    this.panResponder = panResponder;
+      onPanResponderEnd: (e, gestureState) => {
+        console.log(gestureState);
+        return true;
+      }
+    });
   }
 
   renderCards() {
@@ -17,6 +30,6 @@ export default class Deck extends Component {
   }
 
   render() {
-    return <View>{this.renderCards()}</View>;
+    return <View {...this._panResponder.panHandlers}>{this.renderCards()}</View>;
   }
 }

@@ -65,8 +65,8 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   card: {
-    margin: 15,
-    height: 25,
-    width: '100%'
+    padding: 10,
+    height: 100,
+    width: 200
   }
 });

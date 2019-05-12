@@ -9,21 +9,26 @@ export default class Deck extends Component {
 
     const position = new Animated.ValueXY();
     const panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (event, gesture) => {
-        return true;
-      },
+      onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
-        console.log(event, gesture);
         position.setValue({
           x: gesture.dx,
           y: gesture.dy
         });
       },
-      onPanResponderRelease: (event, gesture) => {},
+      onPanResponderRelease: (event, gesture) => {
+        this.resetPosition();
+      },
       onPanResponderEnd: (event, gesture) => {}
     });
 
     this.state = { panResponder, position };
+  }
+
+  resetPosition() {
+    Animated.spring(this.state.position, {
+      toValue: { x: 0, y: 0 }
+    }).start();
   }
 
   getCardStyle() {

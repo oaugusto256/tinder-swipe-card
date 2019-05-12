@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Image, ScrollView, View, Text, StyleSheet } from 'react-native';
 import Deck from './src/components/Deck';
 
 const DATA = [
@@ -49,15 +49,24 @@ export default class App extends React.Component {
   renderCard(card) {
     return (
       <View key={card.id} style={styles.card}>
+        <Image style={{ height: 225, width: '100%' }} source={{ uri: card.uri }} />
         <Text>{card.text}</Text>
+      </View>
+    );
+  }
+
+  renderNoMoreCards() {
+    return (
+      <View style={{ height: 250, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>No more cards!</Text>
       </View>
     );
   }
 
   render() {
     return (
-      <View>
-        <Deck data={DATA} renderCard={this.renderCard} />
+      <View style={{ padding: 25 }}>
+        <Deck data={DATA} renderCard={this.renderCard} renderNoMoreCards={this.renderNoMoreCards} />
       </View>
     );
   }
@@ -65,9 +74,8 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   card: {
-    padding: 10,
-    height: 350,
-    width: '100%',
+    height: 250,
+    width: 300,
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#000',

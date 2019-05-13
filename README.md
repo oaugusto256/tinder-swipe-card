@@ -4,7 +4,7 @@ Tinder swipe card feature made with React Native.
 
 <p align="center">
   <img
-    height="200"
+    height="300"
     src="https://github.com/tavioalves/tinder-swipe-card/blob/master/tinder-swipe-card.gif"
   >
 </p>

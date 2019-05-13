@@ -1,6 +1,9 @@
 import React from 'react';
-import { Image, ScrollView, View, Text, StyleSheet } from 'react-native';
+import { Image, View, Text, StyleSheet, Dimensions } from 'react-native';
 import Deck from './src/components/Deck';
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const DATA = [
   {
@@ -49,23 +52,40 @@ export default class App extends React.Component {
   renderCard(card) {
     return (
       <View key={card.id} style={styles.card}>
-        <Image style={{ height: 225, width: '100%' }} source={{ uri: card.uri }} />
-        <Text>{card.text}</Text>
+        <Image
+          resizeMode={'cover'}
+          source={{ uri: card.uri }}
+          style={{ height: '100%', width: '100%', borderRadius: 10 }}
+        />
       </View>
     );
   }
 
   renderNoMoreCards() {
     return (
-      <View style={{ height: 250, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>No more cards!</Text>
+      <View
+        style={{
+          height: SCREEN_HEIGHT - SCREEN_HEIGHT / 5,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Text style={{ fontSize: 24, fontWeight: '600' }}>No more cards!</Text>
       </View>
     );
   }
 
   render() {
     return (
-      <View style={{ padding: 25 }}>
+      <View
+        style={{
+          flex: 1,
+          padding: 25,
+          paddingTop: 60,
+          width: SCREEN_WIDTH,
+          backgroundColor: '#f7f7f7'
+        }}
+      >
         <Deck data={DATA} renderCard={this.renderCard} renderNoMoreCards={this.renderNoMoreCards} />
       </View>
     );
@@ -74,11 +94,12 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   card: {
-    height: 250,
-    width: 300,
+    borderRadius: 10,
+    borderColor: '#f4f4f4',
+    borderWidth: 1,
+    height: SCREEN_HEIGHT - SCREEN_HEIGHT / 5,
+    width: SCREEN_WIDTH - 45,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#000',
-    borderWidth: 5
+    justifyContent: 'center'
   }
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Animated, PanResponder, Dimensions } from 'react-native';
+import { View, Animated, PanResponder, Dimensions, LayoutAnimation, UIManager } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.45;
@@ -25,10 +25,8 @@ export default class Deck extends Component {
       },
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > SWIPE_THRESHOLD) {
-          console.log('Swipe right!');
           this.forceSwipe('right');
         } else if (gesture.dx < -SWIPE_THRESHOLD) {
-          console.log('Swipe left!');
           this.forceSwipe('left');
         } else {
           this.resetPosition();
@@ -38,6 +36,19 @@ export default class Deck extends Component {
     });
 
     this.state = { panResponder, position, index: 0 };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data != this.props.data) {
+      this.setState({ index: 0 });
+    }
+  }
+
+  componentWillUpdate() {
+    UIManager.setLayoutAnimationEnabledExperimental &&
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+
+    LayoutAnimation.spring();
   }
 
   onSwipeComple(direction) {
@@ -103,7 +114,7 @@ export default class Deck extends Component {
         return (
           <Animated.View
             key={card.id}
-            style={[styles.cardStyle, { top: 10 * (i - this.state.index) }]}
+            style={[styles.cardStyle, { top: 1 * (i - this.state.index) }]}
           >
             {this.props.renderCard(card)}
           </Animated.View>
@@ -113,13 +124,20 @@ export default class Deck extends Component {
   }
 
   render() {
-    return <View>{this.renderCards()}</View>;
+    return (
+      <View style={{ backgroundColor: 'transparent', borderRadius: 10 }}>{this.renderCards()}</View>
+    );
   }
 }
 
 const styles = {
   cardStyle: {
     position: 'absolute',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.25,
+    shadowRadius: 1
   }
 };

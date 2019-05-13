@@ -2,6 +2,8 @@
 
 Tinder swipe card feature made with React Native.
 
+![alt text](https://github.com/tavioalves/tinder-swipe-card/blob/master/tinder-swipe-card.gif)
+
 ## Tested with
 
 The application was tested using a iOS(iPhone 6S) device, unfortunately I don't have a Android device to test the app with it.
@@ -36,10 +38,9 @@ The project was architectured at the following way:
 
 Below we can see all the libs used in the project:
 
-|       Name       |                                                               Function                                                               |
-| :--------------: | :----------------------------------------------------------------------------------------------------------------------------------: |
-|       expo       | A free and open source toolchain built around React Native to help you build native iOS and Android apps using JavaScript and React. |
-
+| Name |                                                               Function                                                               |
+| :--: | :----------------------------------------------------------------------------------------------------------------------------------: |
+| expo | A free and open source toolchain built around React Native to help you build native iOS and Android apps using JavaScript and React. |
 
 ## License
 
